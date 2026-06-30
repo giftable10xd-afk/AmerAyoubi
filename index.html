@@ -8,6 +8,15 @@
 <meta name="theme-color" content="#c81f30">
 <link rel="icon" type="image/png" href="assets/cedar-tree.png">
 <link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      var theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 
@@ -69,6 +78,10 @@
         <path d="M12 6v6l4 2" /></symbol>
       <symbol id="icon-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
         <circle cx="12" cy="10" r="3" /></symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
+        <path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></symbol>
   </defs>
 </svg>
 
@@ -100,6 +113,11 @@
       <svg viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
       <span class="num-ltr">03 388 975</span>
     </a>
+
+    <button class="theme-toggle" type="button" aria-label="تبديل الوضع الليلي" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24"><use href="#icon-sun"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24"><use href="#icon-moon"/></svg>
+    </button>
   </div>
 </header>
 
@@ -214,7 +232,7 @@
             <circle cx="100" cy="152" r="2.4" class="seal-dot"/>
             <circle cx="48" cy="100" r="2.4" class="seal-dot"/>
             <circle cx="152" cy="100" r="2.4" class="seal-dot"/>
-            <g transform="translate(63,58) scale(0.55)" class="seal-cedar">
+            <g transform="translate(72.5,67) scale(0.55)" class="seal-cedar">
               <image href="assets/cedar-tree.png" x="0" y="0" width="100" height="120"/>
             </g>
           </svg>
