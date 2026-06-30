@@ -668,6 +668,14 @@ html[dir="rtl"] .service-accordion-body { padding: 0 64px 24px 24px; }
   font-size: 15.5px;
 }
 .contact-closing svg { width: 28px; height: 28px; color: var(--green); margin: 0 auto 10px; }
+.contact-flag {
+  display: block;
+  width: 64px;
+  height: auto;
+  margin: 0 auto 14px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
 
 /* ===== الفوتر ===== */
 .site-footer {
