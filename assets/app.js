@@ -73,4 +73,32 @@
     if (mainNav.contains(e.target) || navToggle.contains(e.target)) return;
     closeMobileNav();
   });
+
+  /* ===== الوضع الليلي / الوضع النهاري ===== */
+  var THEME_KEY = "theme";
+  var themeToggle = document.querySelector(".theme-toggle");
+  var rootEl = document.documentElement;
+
+  function applyTheme(theme) {
+    rootEl.setAttribute("data-theme", theme);
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+    }
+    var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", theme === "dark" ? "#0c0a08" : "#c81f30");
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      var current = rootEl.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      var next = current === "dark" ? "light" : "dark";
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+      applyTheme(next);
+    });
+  }
+
+  /* مزامنة لون شريط المتصفح مع الوضع الحالي عند التحميل */
+  applyTheme(rootEl.getAttribute("data-theme") === "dark" ? "dark" : "light");
 })();

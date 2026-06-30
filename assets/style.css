@@ -3,16 +3,10 @@
    ==================================================================== */
 
 @font-face {
-  font-family: "Camel";
-  src: url("TheYearofTheCamel-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Camel";
-  src: url("TheYearofTheCamel-Bold.otf") format("opentype");
-  font-weight: 700;
+  font-family: "Naskh Al-Ghurairi";
+  src: url("NaskhAlGhurairi-Regular.ttf") format("truetype");
+  /* الخط يتضمن وزنًا واحدًا فقط؛ تغطية المدى 400-700 تمنع المتصفح من توليد "بولد" مزيّف يشوّه تشكيل الحروف العربية */
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -24,18 +18,32 @@
   --green: #007a3d;        /* أخضر الأرزة الأساسي: روابط، أيقونات، خطوط فاصلة */
   --green-light: #00a651;  /* أخضر فاتح: عناصر كبيرة/زخرفية فقط، لا نص صغير */
   --white: #ffffff;
+  --surface: #ffffff;      /* خلفية البطاقات والأقسام: تتبدّل في الوضع الليلي، خلافًا للأبيض الحرفي */
   --cream: #fbf8f3;        /* أبيض دافئ لتبديل الأقسام */
   --ink: #1c1c1c;
   --ink-soft: #4a4a4a;
   --border: #ece6da;
 
-  --font-display: "Camel", "Tajawal", system-ui, sans-serif;
-  --font-body: "Camel", "Tajawal", system-ui, sans-serif;
+  --font-display: "Naskh Al-Ghurairi", "Tajawal", system-ui, sans-serif;
+  --font-body: "Naskh Al-Ghurairi", "Tajawal", system-ui, sans-serif;
 
   --container: 1180px;
   --radius: 14px;
   --shadow: 0 10px 30px -12px rgba(28, 28, 28, 0.12);
   --transition: 220ms ease;
+}
+
+:root[data-theme="dark"] {
+  --surface: #1f1b17;
+  --cream: #181512;
+  --ink: #f1ece4;
+  --ink-soft: #c9c0b3;
+  --border: #34302a;
+  --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.55);
+}
+
+body {
+  transition: background var(--transition), color var(--transition);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -51,7 +59,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--white);
+  background: var(--surface);
   color: var(--ink);
   line-height: 1.85;
   font-size: 17px;
@@ -171,6 +179,13 @@ button {
 .main-nav a:hover { background: rgba(255,255,255,0.14); }
 .main-nav a.active { background: var(--white); color: var(--red); font-weight: 700; }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .header-phone {
   display: flex;
   align-items: center;
@@ -196,12 +211,31 @@ button {
 }
 .nav-toggle svg { width: 24px; height: 24px; }
 
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.55);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  flex-shrink: 0;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.14); border-color: var(--white); }
+.theme-toggle:active { transform: scale(0.92); }
+.theme-toggle svg { width: 19px; height: 19px; }
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
 /* ===== الهيرو ===== */
 .hero {
   position: relative;
   padding: 76px 0 64px;
   overflow: hidden;
-  background: var(--white);
+  background: var(--surface);
 }
 
 .hero-cedar-bg {
@@ -216,11 +250,47 @@ button {
   object-fit: contain;
 }
 
-.hero-inner {
+.hero-grid {
   position: relative;
   z-index: 1;
-  max-width: 760px;
+  display: flex;
+  align-items: center;
+  gap: 56px;
 }
+
+.hero-inner {
+  flex: 1 1 480px;
+  max-width: 600px;
+}
+
+/* ===== صورة المختار في الهيرو ===== */
+.hero-photo {
+  flex: 1 1 320px;
+  max-width: 380px;
+  margin-inline-start: auto;
+}
+.hero-photo-frame {
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 24px 48px -20px rgba(28, 28, 28, 0.35);
+  border: 1px solid var(--border);
+}
+.hero-photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero-photo-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+}
+.hero-photo-caption svg { width: 15px; height: 15px; color: var(--green); flex-shrink: 0; }
 
 .eyebrow {
   display: inline-flex;
@@ -400,7 +470,7 @@ button {
   gap: 24px;
 }
 .principle-card {
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-top: 4px solid var(--green);
   border-radius: var(--radius);
@@ -438,7 +508,7 @@ button {
   gap: 22px;
 }
 .service-card {
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 26px;
@@ -557,7 +627,7 @@ button {
 }
 .value-card {
   text-align: center;
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px 18px;
@@ -574,7 +644,7 @@ button {
   gap: 16px;
 }
 .service-accordion {
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -636,7 +706,7 @@ html[dir="rtl"] .service-accordion-body { padding: 0 64px 24px 24px; }
   margin: 0 auto;
 }
 .contact-card {
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 36px 28px;
@@ -722,6 +792,9 @@ html[dir="rtl"] .service-accordion-body { padding: 0 64px 24px 24px; }
 /* ===== استجابة الموبايل ===== */
 @media (max-width: 900px) {
   .grid-3, .grid-4, .grid-services, .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid { gap: 32px; }
+  .hero-inner { max-width: none; }
+  .hero-photo { max-width: 300px; }
 }
 
 @media (max-width: 760px) {
@@ -748,6 +821,8 @@ html[dir="rtl"] .service-accordion-body { padding: 0 64px 24px 24px; }
 
   .hero { padding: 44px 0 48px; }
   .hero-cedar-bg { width: 320px; height: 320px; inset-inline-end: -90px; }
+  .hero-grid { flex-direction: column; gap: 30px; }
+  .hero-photo { max-width: 320px; width: 100%; margin-inline: auto; }
   .badges { gap: 10px; }
   .badge { flex: 1 1 calc(50% - 10px); }
 
