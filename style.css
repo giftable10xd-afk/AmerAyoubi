@@ -185,6 +185,13 @@ button {
 .main-nav a:hover { background: rgba(255,255,255,0.14); }
 .main-nav a.active { background: var(--white); color: var(--red); font-weight: 700; }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .header-phone {
   display: flex;
   align-items: center;
